@@ -2,6 +2,9 @@
 #define SERIAL_PORT Serial
 #include <deque>
 #include <iostream>
+#include <Keyboard.h> // The main library for sending keystrokes.
+
+
 using namespace std;
 
 #define WIRE_PORT Wire // Your desired Wire port
@@ -16,6 +19,7 @@ void setup()
 {
   
   SERIAL_PORT.begin(115200); // Start the serial console
+  Keyboard.begin();
   SERIAL_PORT.println(F("ICM-20948 Example"));
 
   delay(100);
@@ -155,7 +159,7 @@ void loop()
       float z = (float)data.Raw_Gyro.Data.Z;
 
       //SERIAL_PORT.print(x);SERIAL_PORT.print(",");SERIAL_PORT.print(y);SERIAL_PORT.print(",");SERIAL_PORT.print(z);
-      if(abs(x)> 50 || abs(y) > 50 || abs(z) > 50)
+      if(Keyboard.press('r'))
       {
         Serial.print("non-idle");
         
